@@ -1,30 +1,13 @@
-import { Logo } from "./assets/svgs";
-import { Background } from "./background";
+import "./style/global.css";
+import "./style/tailwindcss.css";
 
-const Header = () => {
-  return (
-    <header className="px-3 py-5">
-      <Logo className="text-white" />
-    </header>
-  );
-};
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div>
-      <Header />
-      <main>{children}</main>
-    </div>
-  );
-};
+import { Routers } from "./routes/index.tsx";
 
-function App() {
-  return (
-    <>
-      <Layout>hi</Layout>
-      <Background />
-    </>
-  );
-}
-
-export default App;
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <Routers />
+  </React.StrictMode>
+);
