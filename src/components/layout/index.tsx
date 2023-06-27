@@ -8,14 +8,10 @@ export const Layout = () => {
 
   return (
     <>
-      <div>
-        <Header />
-        <main>
-          {/* main section */}
-          <Outlet />
-        </main>
-      </div>
-
+      <Header />
+      {/* main section */}
+      <Outlet />
+      {/* background layer */}
       <Background />
     </>
   );
