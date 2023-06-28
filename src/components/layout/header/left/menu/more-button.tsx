@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { useAtomValue, useSetAtom } from "jotai";
 
-import { Dots } from "@/assets/svgs";
-import { TOGGLE_MORE } from "@/atom/header/action";
-import { IS_MORE_OPEN } from "@/atom/header/state";
+import { DotsSvg } from "@/assets/svgs";
+import { TOGGLE_MORE } from "@/state/header/action";
+import { IS_MORE_OPEN } from "@/state/header/state";
 
 export const MoreButton = () => {
   // TODO: add hover effect
@@ -18,7 +18,7 @@ export const MoreButton = () => {
         !isMoreOpen && "text-gray-400",
       ])}
     >
-      <Dots />
+      <DotsSvg />
     </button>
   );
 };
