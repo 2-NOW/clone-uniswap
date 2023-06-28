@@ -27,7 +27,7 @@ export const Menu = () => {
           href={href}
           isExternal={href.includes("https://")}
           style={{
-            list: "my-1 px-3.5 py-2 font-medium",
+            list: "my-1 px-3.5 py-2",
             link: "text-white hover:text-gray-400",
           }}
         />
