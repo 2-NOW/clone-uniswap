@@ -22,7 +22,6 @@ export const SwapFormInput = ({
         "hover:before:border-[#1E2536]",
       ])}
     >
-      {/* // ? border radius  */}
       <div className="flex min-h-[44px] items-center justify-between">
         <NumericInput
           className="flex-1 text-ellipsis whitespace-nowrap text-4xl font-normal leading-[44px] text-white"
