@@ -18,6 +18,7 @@ module.exports = {
     'react-refresh/only-export-components': 'warn',
     "import/newline-after-import": "warn",
     "tailwindcss/no-custom-classname": "off",
+    '@typescript-eslint/no-unused-vars': ['off', { 'argsIgnorePattern': '^_$' }],
     "import/order": [
       "warn",
       {
