@@ -3,7 +3,7 @@ import { useAtomValue } from "jotai";
 import { Left } from "./left";
 import { More } from "./left/more";
 
-import { IS_MORE_OPEN } from "@/state/header/state";
+import { IS_MORE_OPEN } from "@/state/header";
 
 const Right = () => {
   // TODO: search, network, profile (sidebar)
