@@ -49,7 +49,7 @@ export const CurrencySelect = ({ currency, ...props }: CurrencySelectProps) => {
   return (
     <button
       className={clsx([
-        "ml-3 rounded-2xl font-normal",
+        "ml-3 rounded-2xl font-normal transition-colors duration-300 active:transition-none",
         !currency
           ? "bg-[#4C82FB] p-1.5 pl-2 active:bg-[#5991F4]"
           : "bg-[#293249] p-1 pr-2 hover:bg-[#323B52] active:bg-[#4B546C]",
