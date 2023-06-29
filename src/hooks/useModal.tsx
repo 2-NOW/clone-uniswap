@@ -8,7 +8,7 @@ export const useModal = () => {
   const remove = useSetAtom(REMOVE_MODAL);
 
   const modal = (modal: JSX.Element) => {
-    return new Promise((resolve) => {
+    return new Promise((resolve: (value: string) => void) => {
       const id = Math.random().toString(36).slice(-8);
 
       const callback = (dialog: HTMLDialogElement) => {
@@ -23,6 +23,7 @@ export const useModal = () => {
           { once: true }
         );
       };
+
       set(<Dialog callback={callback}>{modal}</Dialog>, id);
     });
   };
