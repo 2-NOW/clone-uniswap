@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useRef } from "react";
+import { PropsWithChildren, useEffect } from "react";
 
 interface DialogProps {
   callback: (dialog: HTMLDialogElement) => void;
@@ -8,25 +8,22 @@ export const Dialog = ({
   callback,
   children,
 }: PropsWithChildren<DialogProps>) => {
-  const ref = useRef<HTMLDialogElement | null>(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    callback(ref.current);
-  }, [callback]);
-
-  // click outside to close
+  // close dialog when click outside
   useEffect(() => {
     const listener = (e: MouseEvent) => {
-      if (!ref.current) return;
-      if (e.target === ref.current) ref.current.close();
+      if (e.target instanceof HTMLDialogElement && e.target.open) {
+        e.target.close();
+      }
     };
     document.addEventListener("click", listener);
     return () => document.removeEventListener("click", listener);
   }, []);
 
   return (
-    <dialog ref={ref} className="appearance-none bg-transparent p-0">
+    <dialog
+      ref={callback}
+      className="appearance-none p-0 backdrop:bg-[#0D111Cb8]"
+    >
       <form method="dialog">{children}</form>
     </dialog>
   );
