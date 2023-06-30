@@ -6,3 +6,5 @@ export type Modal = {
 };
 
 export const MODALS = atom<Modal[] | null>(null);
+
+export const CLOSE_MODAL = atom<{ close: () => void }>({ close: () => void 0 });
