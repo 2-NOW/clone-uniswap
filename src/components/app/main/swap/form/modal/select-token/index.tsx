@@ -27,7 +27,7 @@ export const SelectTokenModal = ({
   // TODO: dialog shadow
   // TODO: handle enter to select token
 
-  const { focusRef: ref } = useFocus();
+  const { focusRef } = useFocus();
   const [searchQuery, setSearchQuery] = useState("");
 
   const currencies = getBaseCurrencies(chain);
@@ -64,7 +64,7 @@ export const SelectTokenModal = ({
         <input
           type="text"
           // focus on mount
-          ref={ref}
+          ref={focusRef}
           onKeyDown={handleEnter}
           value={searchQuery}
           onChange={handleInput}
