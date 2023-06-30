@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { ButtonHTMLAttributes } from "react";
 
 import { ArrowDownSvg } from "@/assets/svgs";
-import { getLogoSrc } from "@/constants/assets";
+import { getLogoSrc } from "@/constants/logo";
 
 interface CurrencyLogoProps {
   currency: string;
@@ -21,11 +21,11 @@ const CurrencyLogo = ({ currency }: CurrencyLogoProps) => {
   );
 };
 
-interface CurrencyInnerProps {
+interface CurrencyProps {
   currency: string | null;
 }
 
-const CurrencyInner = ({ currency }: CurrencyInnerProps) => {
+const Currency = ({ currency }: CurrencyProps) => {
   const text = currency ?? "Select token";
 
   return (
@@ -40,12 +40,10 @@ const CurrencyInner = ({ currency }: CurrencyInnerProps) => {
   );
 };
 
-interface CurrencySelectProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
-  currency: string | null;
-}
-
-export const CurrencySelect = ({ currency, ...props }: CurrencySelectProps) => {
+export const CurrencySelect = ({
+  currency,
+  ...props
+}: CurrencyProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type">) => {
   return (
     <button
       className={clsx([
@@ -58,7 +56,7 @@ export const CurrencySelect = ({ currency, ...props }: CurrencySelectProps) => {
       {...props}
     >
       <span className="flex items-center p-0">
-        <CurrencyInner currency={currency} />
+        <Currency currency={currency} />
         <ArrowDownSvg className="ml-2 mr-1" />
       </span>
     </button>
