@@ -1,5 +1,4 @@
 import { useAtomValue } from "jotai";
-import { cloneElement } from "react";
 import { createPortal } from "react-dom";
 
 import { MODALS } from "@/state/modal";
@@ -12,7 +11,7 @@ export const ModalPortal = () => {
   return (
     <>
       {modals?.map(({ component, id }) =>
-        createPortal(cloneElement({ ...component, key: id }), root)
+        createPortal({ ...component, key: id }, root)
       )}
     </>
   );
