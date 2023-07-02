@@ -1,14 +1,13 @@
 import { atom } from "jotai";
 
-import { MODALS, ModalState } from ".";
+import { MODALS } from ".";
 
 export const SET_MODAL = atom(
   null,
-  (_, set, modal: JSX.Element, id: string) => {
-    const _modal: ModalState = { id, component: modal };
+  (_, set, component: JSX.Element, id: string) => {
     set(MODALS, (prev) => {
-      if (prev) return [...prev, _modal];
-      return [_modal];
+      if (prev) return [...prev, { id, component }];
+      return [{ id, component }];
     });
   }
 );
