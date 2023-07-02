@@ -1,6 +1,6 @@
 import { ForwardedRef, PropsWithChildren, forwardRef, useEffect } from "react";
 
-export type Modal<T = unknown> = T & { close?: () => void };
+export type Modal<T = unknown> = T & { close?: (value?: string) => void };
 
 const DialogInner = (
   { children }: PropsWithChildren,
