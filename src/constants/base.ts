@@ -1,19 +1,21 @@
+import { Chain } from "@/state/chain";
+
 export type BaseCurrency = {
   name: string;
   symbol: string;
 };
 
 export const BaseCurrencies = {
-  ETH: [
+  [Chain.Ethereum]: [
     { name: "Ethereum", symbol: "ETH" },
     { name: "Wrapped Bitcoin", symbol: "WBTC" },
     { name: "USD Coin", symbol: "USDC" },
   ],
 };
 
-export const getBaseCurrencies = (chain: string): BaseCurrency[] | null => {
+export const getBaseCurrencies = (chain: Chain): BaseCurrency[] | null => {
   switch (chain) {
-    case "ETH":
+    case Chain.Ethereum:
       return BaseCurrencies[chain];
     default:
       return null;
