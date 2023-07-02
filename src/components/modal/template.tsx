@@ -1,13 +1,11 @@
-import { PropsWithChildren, useEffect } from "react";
+import { ForwardedRef, PropsWithChildren, forwardRef, useEffect } from "react";
 
-interface DialogProps {
-  callback: (dialog: HTMLDialogElement) => void;
-}
+export type Modal<T = unknown> = T & { close?: () => void };
 
-export const Dialog = ({
-  callback,
-  children,
-}: PropsWithChildren<DialogProps>) => {
+const DialogInner = (
+  { children }: PropsWithChildren,
+  ref: ForwardedRef<HTMLDialogElement>
+) => {
   // close dialog when click outside
   useEffect(() => {
     const listener = (e: MouseEvent) => {
@@ -20,11 +18,10 @@ export const Dialog = ({
   }, []);
 
   return (
-    <dialog
-      ref={callback}
-      className="appearance-none p-0 backdrop:bg-[#0D111Cb8]"
-    >
+    <dialog ref={ref} className="appearance-none p-0 backdrop:bg-[#0D111Cb8]">
       <form method="dialog">{children}</form>
     </dialog>
   );
 };
+
+export const Dialog = forwardRef(DialogInner);
