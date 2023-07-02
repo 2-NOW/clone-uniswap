@@ -39,15 +39,23 @@ export const SelectTokenModal = ({
     );
   });
 
+  const selectCurrency = (currency: string) => {
+    close(currency);
+  };
+
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
   const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
     e.preventDefault();
-    // TODO: if query is valid, select token
 
-    close();
+    if (searchQuery) {
+      const first = searchCurrencies?.[0];
+      if (first) selectCurrency(first.symbol);
+      return;
+    }
   };
 
   return (
@@ -78,13 +86,21 @@ export const SelectTokenModal = ({
           ])}
         />
         {/* currency list */}
-        <BaseCurrencyList chain={chain} selectedCurrency={selectedCurrency} />
+        <BaseCurrencyList
+          chain={chain}
+          selectedCurrency={selectedCurrency}
+          onSelectCurrency={selectCurrency}
+        />
       </div>
       {/* separator */}
       <div className="h-[1px] bg-[#98A1C03d]" />
       {/* currency list */}
       <div className="flex-1">
-        <CurrencyList currencies={searchCurrencies ?? []} />
+        <CurrencyList
+          currencies={searchCurrencies ?? []}
+          selectedCurrency={selectedCurrency}
+          onSelectCurrency={selectCurrency}
+        />
       </div>
     </div>
   );
