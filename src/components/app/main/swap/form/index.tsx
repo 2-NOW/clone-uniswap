@@ -1,22 +1,35 @@
 import { SwapButton } from "./button";
-import { CurrencySelect } from "./currency-select";
-// import { SwapInfo } from "./info";
-import { SwapFormInput } from "./input";
+import { SwapInfo } from "./info";
+import { SwapFormInputPanel } from "./input-panel";
 import { SwapInput } from "./swap-input";
 
 export const SwapForm = () => {
-  // TODO: add swap input
+  // TODO: swap state for interaction
+
+  const handleInputSelect = (currency: string) => {
+    // TODO: update swap currency state
+  };
+
+  const handleOutputSelect = (currency: string) => {
+    // TODO: update swap currency state
+  };
 
   return (
     <form>
-      <SwapFormInput right={<CurrencySelect currency="DAI" />} />
+      <SwapFormInputPanel
+        currency={"WBTC"}
+        onSelectCurrency={handleInputSelect}
+      />
       {/* arrow down to swap input */}
       <SwapInput />
       <div className="flex flex-col gap-1">
-        <SwapFormInput right={<CurrencySelect currency={null} />} />
+        <SwapFormInputPanel
+          currency={null}
+          onSelectCurrency={handleOutputSelect}
+        />
         {/* conditional render swap info */}
-        {/* <SwapInfo /> */}
-        <SwapButton label="Connect Wallet" />
+        <SwapInfo />
+        <SwapButton />
       </div>
     </form>
   );
