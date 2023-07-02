@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { ButtonHTMLAttributes } from "react";
 
-import { ArrowDownSvg } from "@/assets/svgs";
+import { ChevronDown } from "@/assets/svgs";
 import { CurrencyLogo } from "@/components/global/logo";
 
 interface CurrencyProps {
@@ -40,7 +40,7 @@ export const CurrencySelect = ({
     >
       <span className="flex items-center p-0">
         <Currency currency={currency} />
-        <ArrowDownSvg className="ml-2 mr-1" />
+        <ChevronDown className="ml-2 mr-1" />
       </span>
     </button>
   );
