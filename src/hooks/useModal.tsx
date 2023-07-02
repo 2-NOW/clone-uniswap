@@ -1,9 +1,8 @@
 import { useSetAtom } from "jotai";
+import { cloneElement } from "react";
 
 import { Dialog } from "@/components/modal/template";
-import { CLOSE_MODAL } from "@/state/modal";
 import { REMOVE_MODAL, SET_MODAL } from "@/state/modal/action";
-import { InitialProvider } from "@/state/util/provider";
 
 export const useModal = () => {
   const set = useSetAtom(SET_MODAL);
@@ -12,9 +11,10 @@ export const useModal = () => {
   const modal = (modal: JSX.Element) => {
     return new Promise((resolve: (value: string) => void) => {
       const id = Math.random().toString(36).slice(-8);
+
       let _dialog: HTMLDialogElement | null = null;
 
-      const callback = (dialog: HTMLDialogElement) => {
+      const init = (dialog: HTMLDialogElement) => {
         if (!dialog || dialog?.open) return;
         dialog.showModal();
         dialog.addEventListener(
@@ -29,16 +29,10 @@ export const useModal = () => {
       };
 
       const close = () => {
-        if (!_dialog) return;
-        _dialog.close();
+        if (_dialog) _dialog.close();
       };
 
-      set(
-        <InitialProvider values={[[CLOSE_MODAL, { close }]]}>
-          <Dialog callback={callback}>{modal}</Dialog>
-        </InitialProvider>,
-        id
-      );
+      set(<Dialog ref={init}>{cloneElement(modal, { close })}</Dialog>, id);
     });
   };
 
