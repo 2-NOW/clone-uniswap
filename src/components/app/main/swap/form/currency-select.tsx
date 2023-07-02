@@ -2,24 +2,7 @@ import clsx from "clsx";
 import { ButtonHTMLAttributes } from "react";
 
 import { ArrowDownSvg } from "@/assets/svgs";
-import { getLogoSrc } from "@/constants/logo";
-
-interface CurrencyLogoProps {
-  currency: string;
-}
-
-const CurrencyLogo = ({ currency }: CurrencyLogoProps) => {
-  const logoSrc = getLogoSrc(currency);
-
-  if (logoSrc) {
-    return <img className="h-6 w-6" alt={`${currency} logo`} src={logoSrc} />;
-  }
-  return (
-    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-500">
-      <span className="text-xl font-semibold">{currency[0]}</span>
-    </div>
-  );
-};
+import { CurrencyLogo } from "@/components/global/logo";
 
 interface CurrencyProps {
   currency: string | null;
@@ -32,7 +15,7 @@ const Currency = ({ currency }: CurrencyProps) => {
     <div className="flex items-center">
       {currency && (
         <div className="mr-0.5">
-          <CurrencyLogo currency={currency} />
+          <CurrencyLogo size="24px" currency={currency} />
         </div>
       )}
       <span className="mx-1 text-xl font-semibold leading-5">{text}</span>
