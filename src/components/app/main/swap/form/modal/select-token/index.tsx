@@ -20,12 +20,8 @@ export const SelectTokenModal = ({
   selectedCurrency,
   close = doNothing,
 }: Modal<SelectTokenModalProps>) => {
-  // TODO: token list
-  // TODO: effect on selected token - badge, list
   // TODO: effect unmount
-
   // TODO: dialog shadow
-  // TODO: handle enter to select token
   const chain = useAtomValue(CHAIN);
 
   const { focusRef } = useFocus();
@@ -54,7 +50,6 @@ export const SelectTokenModal = ({
     if (searchQuery) {
       const first = searchCurrencies?.[0];
       if (first) selectCurrency(first.symbol);
-      return;
     }
   };
 
