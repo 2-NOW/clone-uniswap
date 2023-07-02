@@ -28,8 +28,8 @@ export const useModal = () => {
         _dialog = dialog;
       };
 
-      const close = () => {
-        if (_dialog) _dialog.close();
+      const close = (value?: string) => {
+        if (_dialog) _dialog.close(value);
       };
 
       set(<Dialog ref={init}>{cloneElement(modal, { close })}</Dialog>, id);
