@@ -1,10 +1,14 @@
-import { CurrencySelect } from "../currency-select";
-import { SwapFormInput } from "../input";
+import { InputHTMLAttributes } from "react";
+
 import { SelectTokenModal } from "../modal/select-token";
+
+import { CurrencySelect } from "./currency-select";
+import { SwapFormInput } from "./input";
 
 import { useModal } from "@/hooks/useModal";
 
-interface SwapFormInputPanelProps {
+interface SwapFormInputPanelProps
+  extends InputHTMLAttributes<HTMLInputElement> {
   currency: string | null;
   onSelectCurrency: (currency: string) => void;
 }
@@ -12,8 +16,9 @@ interface SwapFormInputPanelProps {
 export const SwapFormInputPanel = ({
   currency,
   onSelectCurrency,
+  ...props
 }: SwapFormInputPanelProps) => {
-  // TODO: how to handle token modal chain ?
+  // TODO: bottom to currency info (fiat value, balance, etc.)
   const { modal } = useModal();
 
   const handleCurrencyClick = async () => {
@@ -25,6 +30,7 @@ export const SwapFormInputPanel = ({
 
   return (
     <SwapFormInput
+      {...props}
       right={
         <CurrencySelect onClick={handleCurrencyClick} currency={currency} />
       }
