@@ -6,26 +6,27 @@ import { BaseCurrencyList } from "./badge";
 import { CurrencyList } from "./list";
 
 import { CloseSvg } from "@/assets/svgs";
+import { Modal } from "@/components/modal/template";
 import { getBaseCurrencies } from "@/constants/base";
 import { useFocus } from "@/hooks/useFocus";
-import { CLOSE_MODAL } from "@/state/modal";
+import { CHAIN } from "@/state/chain";
+import { doNothing } from "@/utils/do-nothing";
 
 interface SelectTokenModalProps {
-  chain: string;
   selectedCurrency: string | null;
 }
 
 export const SelectTokenModal = ({
-  chain,
   selectedCurrency,
-}: SelectTokenModalProps) => {
-  const { close } = useAtomValue(CLOSE_MODAL);
+  close = doNothing,
+}: Modal<SelectTokenModalProps>) => {
   // TODO: token list
   // TODO: effect on selected token - badge, list
   // TODO: effect unmount
 
   // TODO: dialog shadow
   // TODO: handle enter to select token
+  const chain = useAtomValue(CHAIN);
 
   const { focusRef } = useFocus();
   const [searchQuery, setSearchQuery] = useState("");
