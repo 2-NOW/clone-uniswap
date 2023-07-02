@@ -18,7 +18,7 @@ export const SwapFormInputPanel = ({
 
   const handleCurrencyClick = async () => {
     const selectedCurrency = await modal(
-      <SelectTokenModal chain="ETH" selectedCurrency={currency} />
+      <SelectTokenModal selectedCurrency={currency} />
     );
     if (selectedCurrency) onSelectCurrency(selectedCurrency);
   };
