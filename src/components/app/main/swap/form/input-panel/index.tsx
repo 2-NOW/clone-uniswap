@@ -1,4 +1,5 @@
 import { Currency, NativeCurrency, Token } from "@uniswap/sdk-core";
+import bn from "bignumber.js";
 import { InputHTMLAttributes } from "react";
 
 import { SelectTokenModal } from "../modal/select-token";
@@ -22,7 +23,9 @@ const FiatPrice = ({ amount, currency }: FiatPriceProps) => {
 
   if (!_amount) return null;
   return (
-    <span className="pt-2 text-sm">${toLocaleString(_amount * fiatPrice)}</span>
+    <span className="pt-2 text-sm">
+      ${toLocaleString(bn(_amount).times(fiatPrice).toNumber())}
+    </span>
   );
 };
 

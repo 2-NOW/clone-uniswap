@@ -7,7 +7,7 @@ import { SwapFormInputPanel } from "./input-panel";
 import { SwitchInput } from "./switch";
 
 import { useDerivedSwapInfo } from "@/hooks/useDerivedSwapInfo";
-import { formatNumber } from "@/utils/format-number";
+import { formatNumber } from "@/utils/number/format";
 import { currencyAmountPrecision } from "@/utils/precise";
 
 export enum Field {

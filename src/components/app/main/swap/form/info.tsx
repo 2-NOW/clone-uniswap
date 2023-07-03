@@ -5,8 +5,8 @@ import { useReducer, useState } from "react";
 import { ChevronDown, GasSvg, SpinnerSvg } from "@/assets/svgs";
 import { getFiatValue } from "@/constants/fiat";
 import { InterfaceTrade } from "@/libs/route/types";
-import { formatNumber } from "@/utils/format-number";
 import { toLocaleString } from "@/utils/localize";
+import { formatNumber } from "@/utils/number/format";
 import { priceToPreciseFloat } from "@/utils/price-float";
 
 interface SwapInfoProps {
