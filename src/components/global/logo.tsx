@@ -1,12 +1,12 @@
 import { getLogoSrc } from "@/constants/logo";
 
 interface CurrencyLogoProps {
-  currency: string;
+  symbol?: string;
   size: `${number}px`;
 }
 
-export const CurrencyLogo = ({ currency, size }: CurrencyLogoProps) => {
-  const logoSrc = getLogoSrc(currency);
+export const CurrencyLogo = ({ symbol, size }: CurrencyLogoProps) => {
+  const logoSrc = symbol ? getLogoSrc(symbol) : null;
 
   if (logoSrc) {
     return (
@@ -15,7 +15,7 @@ export const CurrencyLogo = ({ currency, size }: CurrencyLogoProps) => {
           width: size,
           height: size,
         }}
-        alt={`${currency} logo`}
+        alt={`${symbol} logo`}
         src={logoSrc}
       />
     );
@@ -28,7 +28,7 @@ export const CurrencyLogo = ({ currency, size }: CurrencyLogoProps) => {
         height: size,
       }}
     >
-      <span className="text-xl font-semibold">{currency[0]}</span>
+      <span className="text-xl font-semibold">{symbol ? symbol[0] : "?"}</span>
     </div>
   );
 };
