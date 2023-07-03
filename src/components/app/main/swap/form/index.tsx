@@ -103,6 +103,8 @@ export const SwapForm = () => {
     }));
   };
 
+  const showDetailsDropdown = !!trade || isLoading;
+
   return (
     <form>
       <SwapFormInputPanel
@@ -119,8 +121,7 @@ export const SwapForm = () => {
           currency={currencies[Field.OUTPUT]}
           onSelectCurrency={(currency) => handleSelect(currency, Field.OUTPUT)}
         />
-        {/* // TODO: conditional render swap info */}
-        <SwapInfo />
+        {showDetailsDropdown && <SwapInfo loading={true} trade={trade} />}
         <SwapButton />
       </div>
     </form>
