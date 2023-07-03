@@ -1,16 +1,22 @@
+import { Currency, NativeCurrency, Token } from "@uniswap/sdk-core";
 import clsx from "clsx";
 
 import { CurrencyLogo } from "@/components/global/logo";
 import { getBaseCurrencies } from "@/constants/base";
+import { SupportedChainId } from "@/constants/tokens";
 import { Chain } from "@/state/chain";
 
 interface CurrencyBadgeProps {
-  currency: string;
+  currency: NativeCurrency | Token;
   selected: boolean;
   onClick: () => void;
 }
 
-const CurrencyBadge = ({ currency, selected, onClick }: CurrencyBadgeProps) => {
+const CurrencyBadge = ({
+  currency: { symbol },
+  selected,
+  onClick,
+}: CurrencyBadgeProps) => {
   return (
     <div
       onClick={!selected ? onClick : undefined}
@@ -22,35 +28,35 @@ const CurrencyBadge = ({ currency, selected, onClick }: CurrencyBadgeProps) => {
       ])}
     >
       <div className="mr-2">
-        <CurrencyLogo size="24px" currency={currency} />
+        <CurrencyLogo size="24px" symbol={symbol} />
       </div>
-      <div>{currency}</div>
+      <div>{symbol}</div>
     </div>
   );
 };
 
 interface BaseCurrencyListProps {
   chain: Chain;
-  selectedCurrency: string | null;
-  onSelectCurrency: (currency: string) => void;
+  currency: Currency | null;
+  onSelectCurrency: (currency: NativeCurrency | Token) => void;
 }
 
 export const BaseCurrencyList = ({
   chain,
-  selectedCurrency,
+  currency,
   onSelectCurrency,
 }: BaseCurrencyListProps) => {
-  const bases = getBaseCurrencies(chain);
+  const bases = getBaseCurrencies(SupportedChainId.MAINNET);
 
   return (
     <div className="-m-1 flex flex-wrap items-center justify-start gap-1">
       {bases &&
-        bases.map(({ symbol }) => (
+        bases.map((base) => (
           <CurrencyBadge
-            onClick={() => onSelectCurrency(symbol)}
-            key={`badge-${symbol}`}
-            currency={symbol}
-            selected={selectedCurrency === symbol}
+            onClick={() => onSelectCurrency(base)}
+            key={`badge-${base.symbol}-${base.name}-${chain}`}
+            currency={base}
+            selected={currency === base}
           />
         ))}
     </div>
