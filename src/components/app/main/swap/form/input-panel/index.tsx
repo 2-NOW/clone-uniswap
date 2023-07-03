@@ -1,5 +1,4 @@
 import { Currency, NativeCurrency, Token } from "@uniswap/sdk-core";
-import { BigNumber } from "ethers";
 import { InputHTMLAttributes } from "react";
 
 import { SelectTokenModal } from "../modal/select-token";
@@ -9,7 +8,7 @@ import { SwapFormInput } from "./input";
 
 import { getFiatValue } from "@/constants/fiat";
 import { useModal } from "@/hooks/useModal";
-import { toLocaleString } from "@/utils/fixed";
+import { toLocaleString } from "@/utils/localize";
 import { pureNumber } from "@/utils/pure-number";
 
 interface FiatPriceProps {
