@@ -30,7 +30,7 @@ export const SwapFormInput = ({
         {/* right section */}
         {right}
       </div>
-      <div className="min-h-[20px] p-0">{bottom}</div>
+      <div className="min-h-[20px]">{bottom}</div>
     </div>
   );
 };
