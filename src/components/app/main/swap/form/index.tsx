@@ -1,33 +1,125 @@
+import { Currency } from "@uniswap/sdk-core";
+import { useState } from "react";
+
 import { SwapButton } from "./button";
 import { SwapInfo } from "./info";
 import { SwapFormInputPanel } from "./input-panel";
-import { SwapInput } from "./swap-input";
+import { SwitchInput } from "./switch";
+
+import { useDerivedSwapInfo } from "@/hooks/useDerivedSwapInfo";
+import { formatNumber } from "@/utils/format-number";
+import { currencyAmountPrecision } from "@/utils/precise";
+
+export enum Field {
+  INPUT = "INPUT",
+  OUTPUT = "OUTPUT",
+}
+
+export type SwapState = {
+  independentField: Field;
+  typedValue: string;
+  [Field.INPUT]: {
+    currencyId: string | null;
+  };
+  [Field.OUTPUT]: {
+    currencyId: string | null;
+  };
+};
+
+const initialState: SwapState = {
+  independentField: Field.INPUT,
+  typedValue: "",
+  [Field.INPUT]: {
+    currencyId: "ETH",
+  },
+  [Field.OUTPUT]: {
+    currencyId: null,
+  },
+};
 
 export const SwapForm = () => {
-  // TODO: swap state for interaction
+  const [inputState, setInputCurrency] = useState<SwapState>(initialState);
 
-  const handleInputSelect = (currency: string) => {
-    // TODO: update swap currency state
+  const { independentField, typedValue } = inputState;
+
+  const dependentField =
+    independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT;
+
+  const {
+    currencies,
+    parsedAmount,
+    trade: { isLoading, trade },
+  } = useDerivedSwapInfo(inputState);
+
+  const parsedAmounts = {
+    [Field.INPUT]:
+      independentField === Field.INPUT ? parsedAmount : trade?.inputAmount,
+    [Field.OUTPUT]:
+      independentField === Field.OUTPUT ? parsedAmount : trade?.outputAmount,
   };
 
-  const handleOutputSelect = (currency: string) => {
-    // TODO: update swap currency state
+  const formattedAmount = {
+    [independentField]: typedValue,
+    [dependentField]: formatNumber(
+      currencyAmountPrecision(parsedAmounts[dependentField])
+    ),
+  };
+
+  const handleSwitchCurrency = () => {
+    setInputCurrency((prev) => ({
+      ...prev,
+      independentField:
+        prev.independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT,
+      [Field.INPUT]: {
+        currencyId: prev[Field.OUTPUT].currencyId,
+      },
+      [Field.OUTPUT]: {
+        currencyId: prev[Field.INPUT].currencyId,
+      },
+    }));
+  };
+
+  const handleSelect = (currency: Currency, field: Field) => {
+    const otherField = field === Field.INPUT ? Field.OUTPUT : Field.INPUT;
+
+    setInputCurrency((prev) => {
+      if (prev[otherField].currencyId === currency.symbol) {
+        return {
+          ...prev,
+          independentField: field,
+          [field]: { currencyId: currency.symbol },
+          [otherField]: { currencyId: prev[field].currencyId },
+        };
+      }
+      return { ...prev, [field]: { currencyId: currency.symbol } };
+    });
+  };
+
+  const handleTypeInput = (value: string, field: Field) => {
+    setInputCurrency((prev) => ({
+      ...prev,
+      independentField: field,
+      typedValue: value,
+    }));
   };
 
   return (
     <form>
       <SwapFormInputPanel
-        currency={"WBTC"}
-        onSelectCurrency={handleInputSelect}
+        value={formattedAmount[Field.INPUT]}
+        onChange={(e) => handleTypeInput(e.target.value, Field.INPUT)}
+        currency={currencies[Field.INPUT]}
+        onSelectCurrency={(currency) => handleSelect(currency, Field.INPUT)}
       />
-      {/* arrow down to swap input */}
-      <SwapInput />
+      <SwitchInput onClick={handleSwitchCurrency} />
       <div className="flex flex-col gap-1">
         <SwapFormInputPanel
-          currency={null}
-          onSelectCurrency={handleOutputSelect}
+          value={formattedAmount[Field.OUTPUT]}
+          onChange={(e) => handleTypeInput(e.target.value, Field.OUTPUT)}
+          currency={currencies[Field.OUTPUT]}
+          onSelectCurrency={(currency) => handleSelect(currency, Field.OUTPUT)}
         />
-        {/* conditional render swap info */}
+        {/* // TODO: conditional render swap info */}
         <SwapInfo />
         <SwapButton />
       </div>
