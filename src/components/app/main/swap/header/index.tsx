@@ -2,7 +2,12 @@ import { Setting } from "./setting";
 
 const BuyButton = () => {
   // TODO: sidebar open
-  return <div className="hover:text-gray-400/70">Buy</div>;
+  return (
+    <div className="flex cursor-pointer items-center gap-1 hover:text-gray-400/90">
+      <span>Buy</span>
+      <div className="h-2 w-2 rounded-full bg-[#4C82FB]" />
+    </div>
+  );
 };
 
 export const SwapHeader = () => {
