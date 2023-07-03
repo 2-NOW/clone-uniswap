@@ -1,4 +1,6 @@
-# Uniswap clone - swap page
+# Uniswap clone
+
+> This is a clone of the swap page of [uniswap](https://app.uniswap.org/#/swap) using [uniswap-sdk](https://docs.uniswap.org/sdk/v3/overview).
 
 ## Stack
 
