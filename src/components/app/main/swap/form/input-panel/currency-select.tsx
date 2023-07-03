@@ -1,3 +1,4 @@
+import { Currency } from "@uniswap/sdk-core";
 import clsx from "clsx";
 import { ButtonHTMLAttributes } from "react";
 
@@ -5,17 +6,17 @@ import { ChevronDown } from "@/assets/svgs";
 import { CurrencyLogo } from "@/components/global/logo";
 
 interface CurrencyProps {
-  currency: string | null;
+  currency: Currency | null;
 }
 
-const Currency = ({ currency }: CurrencyProps) => {
-  const text = currency ?? "Select token";
+const CurrencyBadge = ({ currency }: CurrencyProps) => {
+  const text = currency?.symbol ?? "Select token";
 
   return (
     <div className="flex items-center">
       {currency && (
         <div className="mr-0.5">
-          <CurrencyLogo size="24px" currency={currency} />
+          <CurrencyLogo size="24px" symbol={currency.symbol} />
         </div>
       )}
       <span className="mx-1 text-xl font-semibold leading-5">{text}</span>
@@ -39,7 +40,7 @@ export const CurrencySelect = ({
       {...props}
     >
       <span className="flex items-center p-0">
-        <Currency currency={currency} />
+        <CurrencyBadge currency={currency} />
         <ChevronDown className="ml-2 mr-1" />
       </span>
     </button>
