@@ -38,7 +38,7 @@ const InfoItem = ({ price }: { price: Price<Currency, Currency> }) => {
   return (
     <div
       onClick={toggleInverted}
-      className="flex items-center justify-between gap-1 text-sm font-normal"
+      className="flex cursor-pointer items-center justify-between gap-1 text-sm font-normal"
     >
       <span>{text}</span>
       <span className="text-[#98A1C0]">(${toLocaleString(usdPrice)})</span>
