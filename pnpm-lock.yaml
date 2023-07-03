@@ -9,8 +9,8 @@ dependencies:
     specifier: ^1.4.0
     version: 1.4.0(hardhat@2.16.1)
   '@uniswap/sdk-core':
-    specifier: ^4.0.1
-    version: 4.0.1
+    specifier: ^3.2.3
+    version: 3.2.3
   '@uniswap/smart-order-router':
     specifier: 3.13.2-hotfix2
     version: 3.13.2-hotfix2(hardhat@2.16.1)(jsbi@3.2.5)
@@ -23,6 +23,9 @@ dependencies:
   autoprefixer:
     specifier: ^10.4.14
     version: 10.4.14(postcss@8.4.24)
+  bignumber.js:
+    specifier: ^9.1.1
+    version: 9.1.1
   clsx:
     specifier: ^1.2.1
     version: 1.2.1
@@ -1737,18 +1740,6 @@ packages:
 
   /@uniswap/sdk-core@3.2.3:
     resolution: {integrity: sha512-ERVYKa5ENPwDA6/UZ45H1D5xIqTFcvDYpLxcncOzX8vRXuCAupMUoFFH5s/xx8IMcstONsAOPR1h4vRCzUkSsA==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@ethersproject/address': 5.7.0
-      big.js: 5.2.2
-      decimal.js-light: 2.5.1
-      jsbi: 3.2.5
-      tiny-invariant: 1.3.1
-      toformat: 2.0.0
-    dev: false
-
-  /@uniswap/sdk-core@4.0.1:
-    resolution: {integrity: sha512-zCL2lemiEoiaRxRrM5V7oajadA2bJgf40lPh90taRIWgJoe0DN5KgLnz4G0N6uwbps9+YtZTocyztJslEsIkrg==}
     engines: {node: '>=10'}
     dependencies:
       '@ethersproject/address': 5.7.0
