@@ -1,23 +1,27 @@
+import { Currency, NativeCurrency, Token } from "@uniswap/sdk-core";
 import clsx from "clsx";
 import { useAtomValue } from "jotai";
 import { KeyboardEvent, ChangeEvent, useState } from "react";
 
-import { BaseCurrencyList } from "./badge";
+import { BaseCurrencyList } from "./bases";
 import { CurrencyList } from "./list";
 
 import { CloseSvg } from "@/assets/svgs";
 import { Modal } from "@/components/modal/template";
-import { getBaseCurrencies } from "@/constants/base";
+import { getDefaultTokens } from "@/constants/default";
+import { SupportedChainId } from "@/constants/tokens";
 import { useFocus } from "@/hooks/useFocus";
 import { CHAIN } from "@/state/chain";
 import { doNothing } from "@/utils/do-nothing";
 
 interface SelectTokenModalProps {
-  selectedCurrency: string | null;
+  currency: Currency | null;
+  onSelectCurrency: (currency: NativeCurrency | Token) => void;
 }
 
 export const SelectTokenModal = ({
-  selectedCurrency,
+  currency,
+  onSelectCurrency,
   close = doNothing,
 }: Modal<SelectTokenModalProps>) => {
   // TODO: effect unmount
@@ -27,16 +31,18 @@ export const SelectTokenModal = ({
   const { focusRef } = useFocus();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const currencies = getBaseCurrencies(chain);
+  const currencies = getDefaultTokens(SupportedChainId.MAINNET);
   const searchCurrencies = currencies?.filter(({ symbol, name }) => {
     const query = searchQuery.toLowerCase();
     return (
-      symbol.toLowerCase().includes(query) || name.toLowerCase().includes(query)
+      symbol?.toLowerCase().includes(query) ||
+      name?.toLowerCase().includes(query)
     );
   });
 
-  const selectCurrency = (currency: string) => {
-    close(currency);
+  const handleSelect = (currency: Currency) => {
+    onSelectCurrency(currency);
+    close();
   };
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +55,7 @@ export const SelectTokenModal = ({
 
     if (searchQuery) {
       const first = searchCurrencies?.[0];
-      if (first) selectCurrency(first.symbol);
+      if (first) handleSelect(first);
     }
   };
 
@@ -83,8 +89,8 @@ export const SelectTokenModal = ({
         {/* currency list */}
         <BaseCurrencyList
           chain={chain}
-          selectedCurrency={selectedCurrency}
-          onSelectCurrency={selectCurrency}
+          currency={currency}
+          onSelectCurrency={handleSelect}
         />
       </div>
       {/* separator */}
@@ -93,8 +99,8 @@ export const SelectTokenModal = ({
       <div className="flex-1">
         <CurrencyList
           currencies={searchCurrencies ?? []}
-          selectedCurrency={selectedCurrency}
-          onSelectCurrency={selectCurrency}
+          currency={currency}
+          onSelectCurrency={handleSelect}
         />
       </div>
     </div>
