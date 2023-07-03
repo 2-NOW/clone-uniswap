@@ -8,7 +8,7 @@ import { SwitchInput } from "./switch";
 
 import { useDerivedSwapInfo } from "@/hooks/useDerivedSwapInfo";
 import { formatNumber } from "@/utils/number/format";
-import { currencyAmountPrecision } from "@/utils/precise";
+import { parseCurrencyAmount } from "@/utils/number/parce-currency";
 
 export enum Field {
   INPUT = "INPUT",
@@ -61,7 +61,7 @@ export const SwapForm = () => {
   const formattedAmount = {
     [independentField]: typedValue,
     [dependentField]: formatNumber(
-      currencyAmountPrecision(parsedAmounts[dependentField])
+      parseCurrencyAmount(parsedAmounts[dependentField])
     ),
   };
 

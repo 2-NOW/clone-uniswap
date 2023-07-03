@@ -2,7 +2,7 @@ import { TradeType, useBestTrade } from "./useBestTrade";
 
 import { Field, SwapState } from "@/components/app/main/swap/form";
 import { getCurrency } from "@/constants/tokens";
-import { parseCurrencyAmount } from "@/utils/parse";
+import { convertCurrencyAmount } from "@/utils/number/convert-currency";
 
 export const useDerivedSwapInfo = (state: SwapState) => {
   const {
@@ -24,7 +24,7 @@ export const useDerivedSwapInfo = (state: SwapState) => {
     [Field.OUTPUT]: outputCurrency,
   };
 
-  const parsedAmount = parseCurrencyAmount(
+  const parsedAmount = convertCurrencyAmount(
     typedValue,
     currencies[independentField]
   );

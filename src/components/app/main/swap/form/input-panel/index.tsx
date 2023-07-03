@@ -9,8 +9,8 @@ import { SwapFormInput } from "./input";
 
 import { getFiatValue } from "@/constants/fiat";
 import { useModal } from "@/hooks/useModal";
-import { toLocaleString } from "@/utils/localize";
-import { pureNumber } from "@/utils/pure-number";
+import { toLocaleString } from "@/utils/number/format-locale";
+import { pureNumber } from "@/utils/number/pure";
 
 interface FiatPriceProps {
   amount: string;

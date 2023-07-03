@@ -2,7 +2,7 @@ import { Currency, CurrencyAmount } from "@uniswap/sdk-core";
 import { parseUnits } from "ethers/lib/utils";
 import JSBI from "jsbi";
 
-export const parseCurrencyAmount = <C extends Currency>(
+export const convertCurrencyAmount = <C extends Currency>(
   amount: string,
   currency: C | null
 ): CurrencyAmount<C> | undefined => {

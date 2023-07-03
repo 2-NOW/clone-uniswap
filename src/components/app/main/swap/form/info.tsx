@@ -5,9 +5,9 @@ import { useReducer, useState } from "react";
 import { ChevronDown, GasSvg, SpinnerSvg } from "@/assets/svgs";
 import { getFiatValue } from "@/constants/fiat";
 import { InterfaceTrade } from "@/libs/route/types";
-import { toLocaleString } from "@/utils/localize";
 import { formatNumber } from "@/utils/number/format";
-import { priceToPreciseFloat } from "@/utils/price-float";
+import { toLocaleString } from "@/utils/number/format-locale";
+import { parsePriceFloat } from "@/utils/number/parse-price";
 
 interface SwapInfoProps {
   trade?: InterfaceTrade;
@@ -22,9 +22,7 @@ const InfoItem = ({ price }: { price: Price<Currency, Currency> }) => {
   const invertedCurrency = showInverted ? quoteCurrency : baseCurrency;
 
   const fiatValue = getFiatValue(currency);
-  const precisePrice = priceToPreciseFloat(
-    showInverted ? price : price.invert()
-  );
+  const precisePrice = parsePriceFloat(showInverted ? price : price.invert());
   const formattedPrice = formatNumber(precisePrice);
 
   const label = invertedCurrency.symbol;
