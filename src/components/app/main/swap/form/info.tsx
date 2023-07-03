@@ -50,7 +50,7 @@ const LoadingInfo = () => {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <SpinnerSvg className="h-4 w-4 animate-spin" />
+        <SpinnerSvg className="h-4 w-4 animate-spin text-gray-800" />
         <span className="text-[#98A1C0]">Fetching best price...</span>
       </div>
       <ChevronDown className="text-[#98A1C0]" />
