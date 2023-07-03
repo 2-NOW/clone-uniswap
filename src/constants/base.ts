@@ -1,21 +1,16 @@
-import { Chain } from "@/state/chain";
+import { NativeCurrency, Token } from "@uniswap/sdk-core";
 
-export type BaseCurrency = {
-  name: string;
-  symbol: string;
-};
+import { ETH, SupportedChainId, USDC_MAINNET, WBTC } from "./tokens";
 
 export const BaseCurrencies = {
-  [Chain.Ethereum]: [
-    { name: "Ethereum", symbol: "ETH" },
-    { name: "Wrapped Bitcoin", symbol: "WBTC" },
-    { name: "USD Coin", symbol: "USDC" },
-  ],
+  [SupportedChainId.MAINNET]: [ETH, WBTC, USDC_MAINNET],
 };
 
-export const getBaseCurrencies = (chain: Chain): BaseCurrency[] | null => {
+export const getBaseCurrencies = (
+  chain: SupportedChainId
+): (NativeCurrency | Token)[] | null => {
   switch (chain) {
-    case Chain.Ethereum:
+    case SupportedChainId.MAINNET:
       return BaseCurrencies[chain];
     default:
       return null;
