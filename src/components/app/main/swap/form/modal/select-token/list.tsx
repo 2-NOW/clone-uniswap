@@ -1,15 +1,20 @@
+import { Currency, NativeCurrency, Token } from "@uniswap/sdk-core";
 import clsx from "clsx";
 
 import { CheckSvg } from "@/assets/svgs";
 import { CurrencyLogo } from "@/components/global/logo";
-import { BaseCurrency } from "@/constants/base";
 
-interface CurrencyRowProps extends BaseCurrency {
+interface CurrencyRowProps {
+  currency: NativeCurrency | Token;
   disabled?: boolean;
   onClick: () => void;
 }
 
-const CurrencyRow = ({ name, symbol, disabled, onClick }: CurrencyRowProps) => {
+const CurrencyRow = ({
+  currency: { name, symbol },
+  disabled,
+  onClick,
+}: CurrencyRowProps) => {
   return (
     <div
       onClick={!disabled ? onClick : undefined}
@@ -21,7 +26,7 @@ const CurrencyRow = ({ name, symbol, disabled, onClick }: CurrencyRowProps) => {
       ])}
     >
       <div>
-        <CurrencyLogo size="36px" currency={symbol} />
+        <CurrencyLogo size="36px" symbol={symbol} />
       </div>
       <div className="flex grow flex-col">
         <div>{name}</div>
@@ -33,14 +38,14 @@ const CurrencyRow = ({ name, symbol, disabled, onClick }: CurrencyRowProps) => {
 };
 
 interface CurrencyListProps {
-  currencies: Array<BaseCurrency>;
-  selectedCurrency: string | null;
-  onSelectCurrency: (currency: string) => void;
+  currencies: Currency[];
+  currency: Currency | null;
+  onSelectCurrency: (currency: NativeCurrency | Token) => void;
 }
 
 export const CurrencyList = ({
   currencies,
-  selectedCurrency,
+  currency: selectedCurrency,
   onSelectCurrency,
 }: CurrencyListProps) => {
   if (currencies.length === 0) {
@@ -56,9 +61,9 @@ export const CurrencyList = ({
       {currencies.map((currency) => (
         <CurrencyRow
           key={currency.symbol}
-          onClick={() => onSelectCurrency(currency.symbol)}
-          disabled={selectedCurrency === currency.symbol}
-          {...currency}
+          currency={currency}
+          onClick={() => onSelectCurrency(currency)}
+          disabled={selectedCurrency?.symbol === currency.symbol}
         />
       ))}
     </div>
