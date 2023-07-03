@@ -1,3 +1,4 @@
+import { Currency, NativeCurrency, Token } from "@uniswap/sdk-core";
 import { InputHTMLAttributes } from "react";
 
 import { SelectTokenModal } from "../modal/select-token";
@@ -9,8 +10,8 @@ import { useModal } from "@/hooks/useModal";
 
 interface SwapFormInputPanelProps
   extends InputHTMLAttributes<HTMLInputElement> {
-  currency: string | null;
-  onSelectCurrency: (currency: string) => void;
+  currency: Currency | null;
+  onSelectCurrency: (currency: NativeCurrency | Token) => void;
 }
 
 export const SwapFormInputPanel = ({
@@ -22,10 +23,12 @@ export const SwapFormInputPanel = ({
   const { modal } = useModal();
 
   const handleCurrencyClick = async () => {
-    const selectedCurrency = await modal(
-      <SelectTokenModal selectedCurrency={currency} />
+    modal(
+      <SelectTokenModal
+        currency={currency}
+        onSelectCurrency={onSelectCurrency}
+      />
     );
-    if (selectedCurrency) onSelectCurrency(selectedCurrency);
   };
 
   return (
