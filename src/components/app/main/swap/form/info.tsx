@@ -1,6 +1,6 @@
 import { Currency, Price } from "@uniswap/sdk-core";
 import bn from "bignumber.js";
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 
 import { ChevronDown, GasSvg, SpinnerSvg } from "@/assets/svgs";
 import { getFiatValue } from "@/constants/fiat";
@@ -80,7 +80,7 @@ const GasInfo = ({
 
 export const SwapInfo = ({ trade, loading }: SwapInfoProps) => {
   // TODO: add details dropdown
-  const [showDetails, setShowDetails] = useState(false);
+  // const [showDetails, setShowDetails] = useState(false);
 
   return (
     <div className="rounded-2xl border border-[#98A1C03d] px-4 py-3">
