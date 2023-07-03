@@ -6,3 +6,5 @@ export { ReactComponent as ArrowDown } from "./arrow-down.svg";
 export { ReactComponent as CloseSvg } from "./close.svg";
 export { ReactComponent as SearchSvg } from "./search.svg";
 export { ReactComponent as CheckSvg } from "./check.svg";
+export { ReactComponent as SpinnerSvg } from "./spinner.svg";
+export { ReactComponent as GasSvg } from "./gas.svg";
